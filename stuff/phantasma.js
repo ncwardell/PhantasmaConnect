@@ -382,7 +382,7 @@ class PhantasmaLink {
 		this.version = version;
 		this.platform = platform;
 		this.token = null;
-		this.createSocket(providerHint, false);
+		this.createSocket("ecto", false);
 	}
 	
 	resume(token, wallet, nexus, version, platform, callback, providerHint = '') {
