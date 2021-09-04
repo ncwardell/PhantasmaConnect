@@ -377,12 +377,12 @@ class PhantasmaLink {
 		};
 	}
 
-	login(callback, version = 2, platform = 'phantasma', providerHint = '') {
+	login(callback, version = 2, platform = 'phantasma', providerHint = 'ecto') {
 		this.onLogin = callback;
 		this.version = version;
 		this.platform = platform;
 		this.token = null;
-		this.createSocket("ecto", false);
+		this.createSocket(providerHint, false);
 	}
 	
 	resume(token, wallet, nexus, version, platform, callback, providerHint = '') {
