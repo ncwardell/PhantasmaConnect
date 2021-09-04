@@ -377,7 +377,7 @@ class PhantasmaLink {
 		};
 	}
 
-	login(callback, version = 2, platform = 'phantasma', providerHint = 'ecto') {
+	login(callback, version = 2, platform = 'phantasma', providerHint = '') {
 		this.onLogin = callback;
 		this.version = version;
 		this.platform = platform;
