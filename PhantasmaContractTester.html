@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Phantasma Contract Tester</title>
+    
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="col-md-4 text-center">
+        <button type="button" class="btn btn-lg" onclick="loginToPhantasma()">Login</button>
+    </div>
+
+    <script>
+        function loginToPhantasma() {
+            let mydappName = 'mydapp';
+            let requiredVersion = 2;
+            let link = new PhantasmaLink(mydappName); // here we instantiate a Phantasma Link connection
+
+            link.login(function (success) {
+                if (success) {
+                    console.log('Connected to account ' + link.account.address + ' via ' + link.wallet);
+                }
+            }, requiredVersion);
+        }
+    </script>
+
+</body>
+
+</html>
