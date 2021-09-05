@@ -21,8 +21,10 @@
     <!-- Script To Connect -->
     <script>
     
-        let mydappName = 'Testdapp2';
+        let mydappName = 'Contract Tester';
         let requiredVersion = 2;
+        let platform = 'phantasma';
+        let providerHint = 'ecto';
         let link = new PhantasmaLink(mydappName); // here we instantiate a Phantasma Link connection
 
         function loginToPhantasma() {
@@ -30,16 +32,75 @@
 		        if (success) {
 			        console.log('Connected to account ' + link.account.address + ' via ' + link.wallet);
 		        }
-	        }, requiredVersion);
+	        }, requiredVersion, platform, providerHint);
+        };
+        
+        function sendTransaction(){
+            const accountWallet = link.account.address;
+            const contractAddress = document.getElementById("contractAddy").value;
+            const minimumFee = '100000';
+            const gasLimit = '900';
+            const cName = document.getElementById("contractName").value;
+            const mName = document.getElementById("methodName").value;
+            const param = document.getElementById("inputParameters").value
+            
+            const sb = new ScriptBuilder();
+            
+            const script = sb
+            .callContract('gas', 'AllowGas', [accountWallet, contractAddress, minimumFee, gasLimit])
+            .callContract(cName, mName, [param])
+            .callContract('gas', 'SpendGas', [accountWallet])
+            .endScript();
+            
+            console.log(sb);
+            
+            link.sendTransaction('main', script, null;
+            
         };
     
     </script>
     
-    
-    <!-- Connect Button -->
-    <div class="col-md-4 text-center">
-        <button type="button" class="btn btn-lg" onclick="loginToPhantasma()">Login</button>
+    <div style="margin:auto; height: 225px; width: 400px; background: lightblue;">
+        <br>
+        
+        <h1 style="margin:auto;text-align:center;">Phantasma Contract Tester</h1>
+        
+        <br>
+        <br>
+        
+        <div style = "width:100px;height:45px;margin:auto;">
+        <!-- Connect Button -->
+            <div style="margin:auto;">
+                <button type="button" class="btn btn-lg" onclick="loginToPhantasma()">Connect</button>
+            </div>
+        </div>
     </div>
+    
+    <br>
+    
+    <div style="margin:auto; height:500px; width:400px; background: lightgreen;">
+        <br>
+        <br>
+        <div style="margin:auto; width:350px">
+            <input type:"text" id="contractAddy" placeholder="Contract Address" style="width:350px;"></input>
+            <br>
+            <br>
+            <input type:"text" id="contractName" placeholder="Contract Name" style="width:350px;"></input>
+            <br>
+            <br>
+            <input type:"text" id="methodName" placeholder="Method Name" style="width:350px;"></input>
+            <br>
+            <br>
+            <input type:"text" id="inputParameters" placeholder="Parameters (parmeter1, parameter2, etc...)" style="width:350px;"></input>
+        </div>
+        <br>
+        <div style = "width:175px;height:45px;margin:auto;">
+            <div style="margin:auto;">
+                <button type="button" class="btn btn-lg" onclick="sendTransaction()">Send Transaction</button>
+            </div>
+        </div>
+    </div>
+    
     
 
 </body>
