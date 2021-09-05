@@ -4,34 +4,43 @@
 <head>
     <title>Phantasma Contract Tester</title>
     
+    <!-- Stuff Needed for Clean Run -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
     
+    <!-- PhantasmaLink Stuff -->
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
-    
     <link href="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.css" rel="stylesheet">
 
 </head>
 
 <body>
 
+    <!-- Script To Connect -->
+    <script>
+    
+        let mydappName = 'Testdapp2';
+        let requiredVersion = 2;
+        let link = new PhantasmaLink(mydappName); // here we instantiate a Phantasma Link connection
+
+        function loginToPhantasma() {
+	        link.login( function(success) {
+		        if (success) {
+			        console.log('Connected to account ' + link.account.address + ' via ' + link.wallet);
+		        }
+	        }, requiredVersion);
+        };
+    
+    </script>
+    
+    
+    <!-- Connect Button -->
     <div class="col-md-4 text-center">
         <button type="button" class="btn btn-lg" onclick="loginToPhantasma()">Login</button>
     </div>
-
-    <script>
-        function loginToPhantasma() {
-            let mydappName = 'mydapp';
-            let requiredVersion = 2;
-            let link = new PhantasmaLink(mydappName); // here we instantiate a Phantasma Link connection
-
-            link.login(function (success) {
-                if (success) {
-                    console.log('Connected to account ' + link.account.address + ' via ' + link.wallet);
-                }
-            }, requiredVersion);
-        }
-    </script>
+    
 
 </body>
 
