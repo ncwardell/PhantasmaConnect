@@ -1,4 +1,4 @@
-import bigInt from 'big-integer';
+//import bigInt from 'big-integer';
 
 const VMType = {
   None: 0,
