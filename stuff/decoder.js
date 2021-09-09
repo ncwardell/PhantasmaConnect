@@ -1,5 +1,3 @@
-//import bigInt from 'big-integer';
-
 const VMType = {
   None: 0,
   Struct: 1,
@@ -12,7 +10,7 @@ const VMType = {
   Object: 8,
 };
 
-export class Decoder {
+class Decoder {
   constructor(str) {
     this.str = str;
   }
@@ -88,7 +86,7 @@ export class Decoder {
   }
 }
 
-export function decodeVMObject(str) {
+function decodeVMObject(str) {
   var dec = new Decoder(str);
   const type = dec.readByte();
   switch (type) {
