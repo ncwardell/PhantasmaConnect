@@ -3,21 +3,28 @@
 
 <head>
     <title>Phantasma Contract Tester</title>
-    
+
     <!-- Stuff Needed for Clean Run -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+        crossorigin="anonymous">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    
+
     <!-- PhantasmaLink Stuff -->
-    <script src="https://cdn.jsdelivr.net/gh//ncwardell/PhantasmaContractTester/stuff/phantasma.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/phantasma.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.css"
+        rel="stylesheet">
 
     <!-- Decoding N Junk -->
     <script src="https://peterolson.github.io/BigInteger.js/BigInteger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/decoder.js"></script>
-    
+
+    <!-- Customs -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/basics.css">
+    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/basics.js"></script>
+
 
 </head>
 
@@ -25,155 +32,81 @@
 
     <!-- Script To Connect -->
     <script>
-    
-    
-        let mydappName = 'Contract Tester';
-        let requiredVersion = 1;
-        let platform = 'phantasma';
-        let providerHint = '';
-        let link = new PhantasmaLink(mydappName); // here we instantiate a Phantasma Link connection
-        
-        setTimeout(() => { 
-            if(!!window.PhantasmaLinkSocket == true){ 
-                providerHint = 'ecto' 
-                
-            };
-        }, 1000);
 
-        function loginToPhantasma() {
-	        link.login( function(success) {
-		        if (success) {
-			        console.log('Connected to account ' + link.account.address + ' via ' + link.wallet);
-		        }
-	        }, requiredVersion, platform, providerHint);
-        };
-        
-        function sendTransaction(){
-            const accountWallet = link.account.address;
-            const contractAddress = document.getElementById("contractAddy").value;
-            const minimumFee = '100000';
-            const gasLimit = '900';
-            const cName = document.getElementById("contractName").value;
-            const mName = document.getElementById("methodName").value;
-            const param = document.getElementById("inputParameters").value.split(", ");
-            const sb = new ScriptBuilder();
-            
-            const script = sb
-            .callContract('gas', 'AllowGas', [accountWallet, contractAddress, minimumFee, gasLimit])
-            .callContract(cName, mName, param)
-            .callContract('gas', 'SpendGas', [accountWallet])
-            .endScript();
-            
-            console.log(sb);
-            
-            //link.sendTransaction('main', script, null)
-            
-            link.sendTransaction('main', script, null, (res) => {
-            
-                if (res.success) {
-                    console.log('success: ' + res);
-                    //console.log(res['results'])
-                }
-                else {
-                    console.log('failed: ' + res);
-                }            
-            });
-            
-        };
-        
-        function invokeTransaction(){
-            const accountWallet = link.account.address;
-            const cName = document.getElementById("contractName").value;
-            const mName = document.getElementById("methodName").value;
-            const param = document.getElementById("inputParameters").value.split(", ")
-            
-            const sb = new ScriptBuilder();
-            const script = sb
-            .callContract(cName, mName, param)
-            .endScript();
 
-            var data = {
-                jsonrpc: '2.0',
-                method: 'invokeRawScript',
-                params: {
-                    chainInput: 'main',
-                    scriptData: script
-                }, id: 1};
-            
-            
-            $.ajax({
-                url: "http://207.148.17.86:7077/rpc",
-                type: 'post',
-                data: JSON.stringify(data),
-                datatype: 'application/json',
-            complete: function(response) {
-                console.log(response);
-                let data = response.responseJSON.result.results;
-                let cleanData = "";
-                data.forEach(element =>{
-                    cleanData += '{'+ decodeVMObject(element) + '}, ';
-                });
-                
-                document.getElementById('returnBox').value = cleanData;
-            }});
-            
-        };
-        
-    
     </script>
-    
-    <div style="margin:auto; height: 180px; width: 400px; background-image: url('https://cdn.dribbble.com/users/156849/screenshots/6993098/32.gif'); border-radius:25px;">
-        <br>
-        
-        <div style="margin:auto;text-align:center; font-size: 28px;">Phantasma Contract Tester</div>
-        
-        <br>
-        <br>
-        
-        <div style = "width:100px;height:45px;margin:auto;">
-        <!-- Connect Button -->
-            <div style="margin:auto;">
-                <button type="button" class="btn btn-lg" onclick="loginToPhantasma()">Connect</button>
-            </div>
-        </div>
-    </div>
-    
-    <br>
-    
-    <div style="margin:auto; height:570px; width:400px; background-image: url('https://cdn.dribbble.com/users/156849/screenshots/6993098/32.gif'); border-radius:25px;">
-        <br>
-        <br>
-        <div style="margin:auto; width:350px">
-            <input type:"text" id="contractAddy" placeholder="Contract Address" style="width:350px; height:40px; text-align:center; border-radius:15px"></input>
-            <br>
-            <br>
-            <input type:"text" id="contractName" placeholder="Contract Name" style="width:350px; height:40px; text-align:center; border-radius:15px"></input>
-            <br>
-            <br>
-            <input type:"text" id="methodName" placeholder="Method Name" style="width:350px; height:40px; text-align:center; border-radius:15px"></input>
-            <br>
-            <br>
-            <input type:"text" id="inputParameters" placeholder="Parameters (parmeter1, parameter2, etc...)" style="width:350px; height:40px; text-align:center; border-radius:15px"></input>
-        </div>
-        <br>
-        <div style="margin:auto; width:350px">
-            <input type:"text" id="returnBox" placeholder="Returned Data" style="width:350px; height:80px; text-align:center;" readonly></input>
-        </div>
-        <br>
-        <div style = "width:130px;height:45px;margin:auto;">
-            <div style="margin:auto;">
-                <button type="button" class="btn btn-lg" onclick="invokeTransaction()">Return Data</button>
-            </div>
-        </div>
+
+    <div
+        style="background-image: url('https://static.vecteezy.com/system/resources/thumbnails/001/905/573/small/blue-grunge-background-free-photo.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover; height: 100vh;">
         <br><br>
-         <div style = "width:175px;height:45px;margin:auto;">
-            <div style="margin:auto;">
-                <button type="button" class="btn btn-lg" onclick="sendTransaction()">Send Transaction</button>
+        <div
+            style="margin:auto; height: 180px; width: 400px; background-image: url('https://i.imgur.com/V3eik96.gif'); border-radius:25px;">
+            <br>
+
+            <div style="margin:auto;text-align:center; font-size: 28px; color: white; font-weight: bold;">Phantasma
+                Contract Tester
             </div>
+
+            <br><br>
+
+            <div style="width:100px;height:45px;margin:auto;">
+
+                <!-- Connect Button -->
+                <div style="margin:auto;">
+                    <button type="button" class="btn btn-lg" onclick="loginToPhantasma()">Connect</button>
+                </div>
+
+            </div>
+
         </div>
+
+        <br>
+
+        <div>
+
+            <div
+                style="margin:auto; height:570px; width:400px; background-image: url('https://i.imgur.com/V3eik96.gif'); border-radius:25px;">
+                <br>
+                <br>
+                <div id="manualInputs">
+                    <div style="margin:auto; width:350px">
+                        <input type:"text" id="contractAddy" placeholder="Contract Address" class="basicInput"></input>
+                        <br>
+                        <br>
+                        <input type:" text" id="contractName" placeholder="Contract Name" class="basicInput"></input>
+                        <br>
+                        <br>
+                        <input type:"text" id="methodName" placeholder="Method Name" class="basicInput"></input>
+                        <br>
+                        <br>
+                        <input type:"text" id="inputParameters" placeholder="Parameters (parmeter1, parameter2, etc...)"
+                            class="basicInput"></input>
+                    </div>
+                    <br>
+                    <div style="margin:auto; width:350px">
+                        <input type:"text" id="returnBox" placeholder="Returned Data"
+                            style="width:100%; height:80px; text-align:center;" class="slideHide" readonly></input>
+                    </div>
+                    <br>
+                    <div style="width:130px;height:45px;margin:auto;">
+                        <div style="margin:auto;">
+                            <button type="button" class="btn btn-lg" onclick="invokeTransaction()">Return Data</button>
+                        </div>
+                    </div>
+                </div>
+
+                <br><br>
+                <div style="width:175px;height:45px;margin:auto;">
+                    <div style="margin:auto;">
+                        <button type="button" class="btn btn-lg" onclick="sendTransaction()">Send Transaction</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>>
+
     </div>
-    
-    
+
 
 </body>
 
