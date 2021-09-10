@@ -13,7 +13,9 @@
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
     <link href="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.css" rel="stylesheet">
-    
+
+    <!-- Decoding N Junk -->
+    <script src="https://peterolson.github.io/BigInteger.js/BigInteger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/decoder.js"></script>
     
 
@@ -27,8 +29,12 @@
         let mydappName = 'Contract Tester';
         let requiredVersion = 2;
         let platform = 'phantasma';
-        let providerHint = 'ecto';
+        let providerHint = '';
         let link = new PhantasmaLink(mydappName); // here we instantiate a Phantasma Link connection
+        
+        function enableEcto(){
+                providerHint = 'ecto'
+            }
 
         function loginToPhantasma() {
 	        link.login( function(success) {
@@ -38,20 +44,19 @@
 	        }, requiredVersion, platform, providerHint);
         };
         
-        async function sendTransaction(){
+        function sendTransaction(){
             const accountWallet = link.account.address;
             const contractAddress = document.getElementById("contractAddy").value;
             const minimumFee = '100000';
             const gasLimit = '900';
             const cName = document.getElementById("contractName").value;
             const mName = document.getElementById("methodName").value;
-            const param = document.getElementById("inputParameters").value
-            
+            const param = document.getElementById("inputParameters").value.split(", ");
             const sb = new ScriptBuilder();
             
             const script = sb
             .callContract('gas', 'AllowGas', [accountWallet, contractAddress, minimumFee, gasLimit])
-            .callContract('swap', 'SwapTokens', [accountWallet, 'KCAL', 'SOUL', (200 ** 10)])
+            .callContract(cName, mName, param)
             .callContract('gas', 'SpendGas', [accountWallet])
             .endScript();
             
@@ -69,17 +74,48 @@
                     console.log('failed: ' + res);
                 }            
             });
-  
-
             
         };
+        
+        function invokeTransaction(){
+            const accountWallet = link.account.address;
+            const cName = document.getElementById("contractName").value;
+            const mName = document.getElementById("methodName").value;
+            const param = document.getElementById("inputParameters").value.split(", ")
+            
+            const sb = new ScriptBuilder();
+            const script = sb
+            .callContract(cName, mName, param)
+            .endScript();
+
+            var data = {
+                jsonrpc: '2.0',
+                method: 'invokeRawScript',
+                params: {
+                    chainInput: 'main',
+                    scriptData: script
+                }, id: 1};
+            
+            
+            $.ajax({
+                url: "http://207.148.17.86:7077/rpc",
+                type: 'post',
+                data: JSON.stringify(data),
+                datatype: 'application/json',
+            complete: function(response) {
+                let data = response.responseJSON.result;
+                document.getElementById('returnBox').value = decodeVMObject(data.result);
+            }});
+            
+        };
+        
     
     </script>
     
-    <div style="margin:auto; height: 225px; width: 400px; background: lightblue;">
+    <div style="margin:auto; height: 180px; width: 400px; background-image: url('https://cdn.dribbble.com/users/156849/screenshots/6993098/32.gif'); border-radius:25px;">
         <br>
         
-        <h1 style="margin:auto;text-align:center;">Phantasma Contract Tester</h1>
+        <div style="margin:auto;text-align:center; font-size: 28px;">Phantasma Contract Tester</div>
         
         <br>
         <br>
@@ -94,23 +130,33 @@
     
     <br>
     
-    <div style="margin:auto; height:500px; width:400px; background: lightgreen;">
+    <div style="margin:auto; height:570px; width:400px; background-image: url('https://cdn.dribbble.com/users/156849/screenshots/6993098/32.gif'); border-radius:25px;">
         <br>
         <br>
         <div style="margin:auto; width:350px">
-            <input type:"text" id="contractAddy" placeholder="Contract Address" style="width:350px;"></input>
+            <input type:"text" id="contractAddy" placeholder="Contract Address" style="width:350px; height:40px; text-align:center; border-radius:15px"></input>
             <br>
             <br>
-            <input type:"text" id="contractName" placeholder="Contract Name" style="width:350px;"></input>
+            <input type:"text" id="contractName" placeholder="Contract Name" style="width:350px; height:40px; text-align:center; border-radius:15px"></input>
             <br>
             <br>
-            <input type:"text" id="methodName" placeholder="Method Name" style="width:350px;"></input>
+            <input type:"text" id="methodName" placeholder="Method Name" style="width:350px; height:40px; text-align:center; border-radius:15px"></input>
             <br>
             <br>
-            <input type:"text" id="inputParameters" placeholder="Parameters (parmeter1, parameter2, etc...)" style="width:350px;"></input>
+            <input type:"text" id="inputParameters" placeholder="Parameters (parmeter1, parameter2, etc...)" style="width:350px; height:40px; text-align:center; border-radius:15px"></input>
         </div>
         <br>
-        <div style = "width:175px;height:45px;margin:auto;">
+        <div style="margin:auto; width:350px">
+            <input type:"text" id="returnBox" placeholder="Returned Data" style="width:350px; height:80px; text-align:center;" readonly></input>
+        </div>
+        <br>
+        <div style = "width:130px;height:45px;margin:auto;">
+            <div style="margin:auto;">
+                <button type="button" class="btn btn-lg" onclick="invokeTransaction()">Return Data</button>
+            </div>
+        </div>
+        <br><br>
+         <div style = "width:175px;height:45px;margin:auto;">
             <div style="margin:auto;">
                 <button type="button" class="btn btn-lg" onclick="sendTransaction()">Send Transaction</button>
             </div>
