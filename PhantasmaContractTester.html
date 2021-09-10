@@ -10,9 +10,12 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
     
     <!-- PhantasmaLink Stuff -->
-    <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh//ncwardell/PhantasmaContractTester/stuff/phantasma.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
     <link href="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.css" rel="stylesheet">
+
+    <!-- TypeScript Stuff -->
+    <script type="text/typescript" src="phantasma-io/Ecto/src/phan-js/vm/ScriptBuilder.ts"></script>
 
     <!-- Decoding N Junk -->
     <script src="https://peterolson.github.io/BigInteger.js/BigInteger.min.js"></script>
@@ -103,8 +106,14 @@
                 data: JSON.stringify(data),
                 datatype: 'application/json',
             complete: function(response) {
-                let data = response.responseJSON.result;
-                document.getElementById('returnBox').value = decodeVMObject(data.result);
+                console.log(response);
+                let data = response.responseJSON.result.results;
+                let cleanData = "";
+                data.forEach(element =>{
+                    cleanData += '{'+ decodeVMObject(element) + '}, ';
+                });
+                
+                document.getElementById('returnBox').value = cleanData;
             }});
             
         };
