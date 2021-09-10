@@ -8,7 +8,7 @@ let link = new PhantasmaLink(mydappName); //Here we instantiate a Phantasma Link
 //Checks if Ecto is installed after 1 seccond
 setTimeout(() => {
     if (!!window.PhantasmaLinkSocket == true) {
-        enableEctop();
+        enableEcto();
     };
 }, 5000);
 
