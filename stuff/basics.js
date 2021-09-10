@@ -22,7 +22,7 @@ function loginToPhantasma() {
 };
 
 //Enables Ecto via setting hint
-function enableEctop() {
+function enableEcto() {
     providerHint = 'ecto';
 };
 
