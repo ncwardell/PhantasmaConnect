@@ -14,9 +14,6 @@
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
     <link href="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.css" rel="stylesheet">
 
-    <!-- TypeScript Stuff -->
-    <script type="text/typescript" src="phantasma-io/Ecto/src/phan-js/vm/ScriptBuilder.ts"></script>
-
     <!-- Decoding N Junk -->
     <script src="https://peterolson.github.io/BigInteger.js/BigInteger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/decoder.js"></script>
@@ -29,15 +26,19 @@
     <!-- Script To Connect -->
     <script>
     
+    
         let mydappName = 'Contract Tester';
-        let requiredVersion = 2;
+        let requiredVersion = 1;
         let platform = 'phantasma';
         let providerHint = '';
         let link = new PhantasmaLink(mydappName); // here we instantiate a Phantasma Link connection
         
-        function enableEcto(){
-                providerHint = 'ecto'
-            }
+        setTimeout(() => { 
+            if(!!window.PhantasmaLinkSocket == true){ 
+                providerHint = 'ecto' 
+                
+            };
+        }, 1000);
 
         function loginToPhantasma() {
 	        link.login( function(success) {
