@@ -1,19 +1,5 @@
-//Standard Stuff
-let mydappName = 'Phantasma Contract Tester';
-let requiredVersion = 2;
-let platform = 'phantasma';
-let providerHint = '';
-let link = new PhantasmaLink(mydappName); //Here we instantiate a Phantasma Link connection
-
-//Checks if Ecto is installed after 1 seccond
-setTimeout(() => {
-    if (!!window.PhantasmaLinkSocket == true) {
-        providerHint = 'ecto';
-    };
-}, 1000);
-
 //Logs in to Phantasma (If Ecto installed, Toggles Custom Ecto Connect Socket with prividerHint)
-function loginToPhantasma() {
+function loginToPhantasma(link, requiredVersion, platform, providerHint) {
     link.login(function (success) {
         if (success) {
             console.log('Connected to account ' + link.account.address + ' via ' + link.wallet);
