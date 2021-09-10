@@ -7,12 +7,15 @@
     <!-- Stuff Needed for Clean Run -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
     
     <!-- PhantasmaLink Stuff -->
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
     <link href="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.css" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/decoder.js"></script>
+    
 
 </head>
 
@@ -35,7 +38,7 @@
 	        }, requiredVersion, platform, providerHint);
         };
         
-        function sendTransaction(){
+        async function sendTransaction(){
             const accountWallet = link.account.address;
             const contractAddress = document.getElementById("contractAddy").value;
             const minimumFee = '100000';
@@ -48,13 +51,26 @@
             
             const script = sb
             .callContract('gas', 'AllowGas', [accountWallet, contractAddress, minimumFee, gasLimit])
-            .callContract(cName, mName, [param])
+            .callContract('swap', 'SwapTokens', [accountWallet, 'KCAL', 'SOUL', (200 ** 10)])
             .callContract('gas', 'SpendGas', [accountWallet])
             .endScript();
             
             console.log(sb);
             
-            link.sendTransaction('main', script, null;
+            //link.sendTransaction('main', script, null)
+            
+            link.sendTransaction('main', script, null, (res) => {
+            
+                if (res.success) {
+                    console.log('success: ' + res);
+                    //console.log(res['results'])
+                }
+                else {
+                    console.log('failed: ' + res);
+                }            
+            });
+  
+
             
         };
     
