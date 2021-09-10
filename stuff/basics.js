@@ -21,6 +21,7 @@ function loginToPhantasma() {
     }, requiredVersion, platform, providerHint);
 };
 
+//Enables Ecto via setting hint
 function enableEctop() {
     providerHint = 'ecto';
 };
