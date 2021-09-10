@@ -8,7 +8,7 @@ let link = new PhantasmaLink(mydappName); //Here we instantiate a Phantasma Link
 //Checks if Ecto is installed after 1 seccond
 setTimeout(() => {
     if (!!window.PhantasmaLinkSocket == true) {
-        providerHint = 'ecto';
+        enableEctop();
     };
 }, 5000);
 
@@ -19,6 +19,10 @@ function loginToPhantasma() {
             console.log('Connected to account ' + link.account.address + ' via ' + link.wallet);
         }
     }, requiredVersion, platform, providerHint);
+};
+
+function enableEctop() {
+    providerHint = 'ecto';
 };
 
 //Sends Transactions
