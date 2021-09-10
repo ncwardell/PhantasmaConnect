@@ -4,3 +4,11 @@
     text-align:center; 
     border-radius:15px
   }
+
+.baseCard {
+  margin:auto; 
+  height: auto; 
+  width: 400px; 
+  background-image: url('https://i.imgur.com/V3eik96.gif'); 
+  border-radius:25px;
+}
