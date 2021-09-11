@@ -28,6 +28,7 @@
 }
 .switch-button:before {
   content: "Script";
+  font-size: 18px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -62,7 +63,7 @@
   pointer-events: none;
 }
 .switch-button-checkbox + .switch-button-label:before {
-  content: "Manual";
+  content: "";
   background: #fff;
   height: 100%;
   width: 100%;
