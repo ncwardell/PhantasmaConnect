@@ -1,68 +1,138 @@
-//Standard Stuff
-let mydappName = 'Phantasma Contract Tester';
+//Standard Intitilization Stuff
+let dappName;
 let requiredVersion = 2;
 let platform = 'phantasma';
 let providerHint = '';
-let link = new PhantasmaLink(mydappName); //Here we instantiate a Phantasma Link connection
 
-//Checks if Ecto is installed after 1 seccond
-setTimeout(() => {
+//Creating Usable Input/Output Variables
+let _contractName;
+let _methodName;
+let _inputArguments;
+let _scriptData;
+let _gasProfile;
+let _return;
+
+//Config Used to Create Scripts
+let scriptConfig = {
+    contractName: '',
+    methodName: '',
+    inputArguments: [],
+    compiledScript: '',
+};
+
+//Checks for Ecto Wallet then Enables it Via providerHint
+async function checkForEcto() {
     if (!!window.PhantasmaLinkSocket == true) {
-        enableEcto();
+        providerHint = 'ecto';
     };
-}, 5000);
+};
+
 
 //Logs in to Phantasma (If Ecto installed, Toggles Custom Ecto Connect Socket with prividerHint)
 function loginToPhantasma() {
+
+    //Waits for Ecto Check to finish then continues
+    await checkForEcto();
+
+    //Sends Login Request to Wallet
     link.login(function (success) {
+
+        //Console Logging for Debugging Purposes
         if (success) {
             console.log('Connected to account ' + link.account.address + ' via ' + link.wallet);
-        }
+        } else {
+            console.log('Connection Failed');
+        };
+
     }, requiredVersion, platform, providerHint);
 };
 
-//Enables Ecto via setting hint
-function enableEcto() {
-    providerHint = 'ecto';
-};
-
-//Sends Transactions
-function sendTransaction() {
-
-    //Some Useful Info
-    const accountWallet = link.account.address; //This get's the connected users wallet address
-    const contractAddress = document.getElementById("contractAddy").value;
-
-    //Gas Stuff for transaction fees
-    const minimumFee = '100000';
-    const gasLimit = '900';
-
-    //Arguments & Parameters
-    const _contrctName = document.getElementById("contractName").value;
-    const _methodName = document.getElementById("methodName").value;
-    const _parameters = document.getElementById("inputParameters").value.split(", "); //Spliting each argument from the text box into an array
+//Compiles the Script Config
+async function compileScript(type) {
 
     //SriptBUilding Tools
     const sb = new ScriptBuilder();
 
-    //Builds Script 
-    const script = sb
-        .callContract('gas', 'AllowGas', [accountWallet, contractAddress, minimumFee, gasLimit]) //Just for good measure (optional)
-        .callContract(_contrctName, _methodName, _parameters) //The Meat of the Scrupt
-        .callContract('gas', 'SpendGas', [accountWallet]) //Just for good measure (optional)
-        .endScript();
+    switch (type) {
+        case 'transaction':
 
-    //Logging the final script for Debuging Purposes
-    console.log(sb);
+            //Gas Stuff for transaction fees
+            const minimumFee = '100000';
+            const gasLimit = '900';
+
+            //Builds Script 
+            scriptConfig.compiledScript = sb
+                .callContract('gas', 'AllowGas', [link.account.address, sb.nullAddress(), minimumFee, gasLimit]) //Just for good measure (optional)
+                .callContract(scriptConfig.contrctName, scriptConfig.methodName, scriptConfig.inputArguments) //The Meat of the Script
+                .callContract('gas', 'SpendGas', [link.account.address]) //Just for good measure (optional)
+                .endScript();
+
+        break;
+
+        case 'invoke':
+            
+        //Builds Script
+            scriptConfig.compiledScript = sb
+                .callContract(scriptConfig.contrctName, scriptConfig.methodName, scriptConfig.inputArguments) //The Meat of the Script
+                .endScript();
+
+            break;
+    }
+
+};
 
 
-    //--Useful Info--
-    //link.sendTransaction('mainnet', 'main', script, null)
-    //or
-    //link.sendTransaction('simnet', 'main', script, null)
+//Easy Updating and Script Generation
+async function updateScriptConfig(type) {
 
-    //Send the Transaction with constructed script
-    link.sendTransaction('main', script, null, (res) => {
+    //Better then ifs, am I right
+    switch(type){
+
+        //Used for HTML elements
+        case 'document':
+            scriptConfig.contractName = _contractName.value;
+            scriptConfig.methodName = _contractName.value;
+            scriptConfig.inputArguments = _contractName.value;
+            
+            //Compiles Script with or without gas profile
+            if(_gasProfile.checked == true){
+                await compileScript('transaction');
+            }else{
+                await compileScript('invoke');
+            };
+
+            //Saves Script
+            scriptConfig.compiledScript = _scriptData.value;
+
+        break;
+
+        //Used for non HTML elements
+        case 'standard':
+            scriptConfig.contractName = _contractName;
+            scriptConfig.methodName = _contractName;
+            scriptConfig.inputArguments = _contractName;
+            
+            //Compiles Script with or without gas profile
+            if(_gasProfile == true){
+                await compileScript('transaction');
+            }else{
+                await compileScript('invoke');
+            };
+
+            //Saves Script
+            scriptConfig.compiledScript = _scriptData;
+
+        break;
+    };
+
+};
+
+
+//Sends Transactions
+function sendTransaction(type, script) {
+
+    //Send the Transaction (type = 'mainnet' or 'simnet')
+    link.sendTransaction(type, 'main', script, null, (res) => {
 
         //Logging for Debuging Purposes
         if (res.success) {
@@ -77,28 +147,6 @@ function sendTransaction() {
 //Retrieves Data From Smart Contracts via RPC
 function invokeTransaction() {
 
-    const accountWallet = link.account.address;
-
-    //Arguments & Parameters
-    const cName = document.getElementById("contractName").value;
-    const mName = document.getElementById("methodName").value;
-    const param = document.getElementById("inputParameters").value.split(", ")
-
-    //Builds Script 
-    const sb = new ScriptBuilder();
-    const script = sb
-        .callContract(cName, mName, param)
-        .endScript();
-
-    //RPC Method Call
-    var data = {
-        jsonrpc: '2.0',
-        method: 'invokeRawScript', //Calling invokeRawScript 
-        params: {
-            chainInput: 'main',
-            scriptData: script //Using constructed script data
-        }, id: 1
-    };
 
     //Send RPC Request
     $.ajax({
