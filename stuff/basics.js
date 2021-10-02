@@ -73,7 +73,7 @@ async function compileScript(type) {
             
         //Builds Script
             scriptConfig.compiledScript = sb
-                .callContract(scriptConfig.contrctName, scriptConfig.methodName, scriptConfig.inputArguments) //The Meat of the Script
+                .callContract(scriptConfig.contractName, scriptConfig.methodName, scriptConfig.inputArguments) //The Meat of the Script
                 .endScript();
 
             break;
@@ -91,8 +91,8 @@ async function updateScriptConfig(type) {
         //Used for HTML elements
         case 'document':
             scriptConfig.contractName = _contractName.value;
-            scriptConfig.methodName = _contractName.value;
-            scriptConfig.inputArguments = _contractName.value;
+            scriptConfig.methodName = _methodName.value;
+            scriptConfig.inputArguments = _inputArguments.value;
             
             //Compiles Script with or without gas profile
             if(_gasProfile.checked == true){
@@ -109,8 +109,8 @@ async function updateScriptConfig(type) {
         //Used for non HTML elements
         case 'standard':
             scriptConfig.contractName = _contractName;
-            scriptConfig.methodName = _contractName;
-            scriptConfig.inputArguments = _contractName;
+            scriptConfig.methodName = _methodName;
+            scriptConfig.inputArguments = _inputArguments;
             
             //Compiles Script with or without gas profile
             if(_gasProfile == true){
@@ -145,7 +145,7 @@ function sendTransaction(type, script) {
 };
 
 //Retrieves Data From Smart Contracts via RPC
-function invokeTransaction() {
+function invokeTransaction(data) {
 
 
     //Send RPC Request
