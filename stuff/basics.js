@@ -51,8 +51,8 @@ async function getDocumentValue(input){
     return document.getElementById(input).value;
 };
 
-async function setDocumentValue(input){
-    document.getElementById(input).value = input;
+async function setDocumentValue(documentInput, inputValue){
+    document.getElementById(documentInput).value = inputValue;
 };
 
 //Compiles the Script Config
@@ -110,7 +110,7 @@ async function updateScriptConfig(type) {
             };
 
             //Saves Script
-            await setDocumentValue(scriptData) = scriptConfig.compiledScript;
+            await setDocumentValue(scriptData, scriptConfig.compiledScript);
 
         break;
 
@@ -128,7 +128,7 @@ async function updateScriptConfig(type) {
             };
 
             //Saves Script
-            await setDocumentValue(scriptData) = scriptConfig.compiledScript;
+            await setDocumentValue(scriptData, scriptConfig.compiledScript);
 
         break;
     };
