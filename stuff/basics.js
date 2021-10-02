@@ -14,10 +14,10 @@ let _return;
 
 //Config Used to Create Scripts
 let scriptConfig = {
-    contractName: 'default',
-    methodName: 'default',
-    inputArguments: ['default'],
-    compiledScript: 'default',
+    contractName: '',
+    methodName: '',
+    inputArguments: [''],
+    compiledScript: '',
 };
 
 //Checks for Ecto Wallet then Enables it Via providerHint
@@ -63,7 +63,7 @@ async function compileScript(type) {
             //Builds Script 
             scriptConfig.compiledScript = sb
                 .callContract('gas', 'AllowGas', [link.account.address, sb.nullAddress(), minimumFee, gasLimit]) //Just for good measure (optional)
-                .callContract(scriptConfig.contrctName, scriptConfig.methodName, scriptConfig.inputArguments) //The Meat of the Script
+                .callContract(scriptConfig.contractName, scriptConfig.methodName, scriptConfig.inputArguments) //The Meat of the Script
                 .callContract('gas', 'SpendGas', [link.account.address]) //Just for good measure (optional)
                 .endScript();
 
