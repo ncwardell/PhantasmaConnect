@@ -14,10 +14,10 @@ let _return;
 
 //Config Used to Create Scripts
 let scriptConfig = {
-    contractName: '',
-    methodName: '',
-    inputArguments: [],
-    compiledScript: '',
+    contractName: 'default',
+    methodName: 'default',
+    inputArguments: ['default'],
+    compiledScript: 'default',
 };
 
 //Checks for Ecto Wallet then Enables it Via providerHint
