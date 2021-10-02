@@ -98,9 +98,9 @@ async function updateScriptConfig(type) {
 
         //Used for HTML elements
         case 'document':
-            scriptConfig.contractName = _contractName.value;
-            scriptConfig.methodName = _methodName.value;
-            scriptConfig.inputArguments = _inputArguments.value;
+            scriptConfig.contractName = await getDocumentValue(_contractName);
+            scriptConfig.methodName = await getDocumentValue(_methodName);
+            scriptConfig.inputArguments = await getDocumentValue(_inputArguments);
             
             //Compiles Script with or without gas profile
             if(_gasProfile == true){
@@ -110,7 +110,7 @@ async function updateScriptConfig(type) {
             };
 
             //Saves Script
-            scriptConfig.compiledScript = _scriptData.value;
+            await setDocumentValue(scriptData) = scriptConfig.compiledScript;
 
         break;
 
@@ -128,7 +128,7 @@ async function updateScriptConfig(type) {
             };
 
             //Saves Script
-            scriptConfig.compiledScript = _scriptData;
+            await setDocumentValue(scriptData) = scriptConfig.compiledScript;
 
         break;
     };
