@@ -47,6 +47,14 @@ async function loginToPhantasma() {
     }, requiredVersion, platform, providerHint);
 };
 
+async function getDocumentValue(input){
+    return document.getElementById(input).value;
+};
+
+async function setDocumentValue(input){
+    document.getElementById(input).value = input;
+};
+
 //Compiles the Script Config
 async function compileScript(type) {
 
@@ -95,7 +103,7 @@ async function updateScriptConfig(type) {
             scriptConfig.inputArguments = _inputArguments.value;
             
             //Compiles Script with or without gas profile
-            if(_gasProfile.checked == true){
+            if(_gasProfile == true){
                 await compileScript('transaction');
             }else{
                 await compileScript('invoke');
