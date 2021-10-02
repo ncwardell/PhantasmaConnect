@@ -29,7 +29,7 @@ async function checkForEcto() {
 
 
 //Logs in to Phantasma (If Ecto installed, Toggles Custom Ecto Connect Socket with prividerHint)
-function loginToPhantasma() {
+async function loginToPhantasma() {
 
     //Waits for Ecto Check to finish then continues
     await checkForEcto();
