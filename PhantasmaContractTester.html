@@ -33,57 +33,78 @@
     <!-- Script To Connect -->
     <script>
 
-        //Standard Stuff
-        let mydappName = 'Phantasma Contract Tester';
-        let requiredVersion = 2;
-        let platform = 'phantasma';
-        let providerHint = '';
-        let link = new PhantasmaLink(mydappName); //Here we instantiate a Phantasma Link connection
+        //The Name of your dapp
+        dappName = 'Phantasma Contract Tester';
 
-        //Checks if Ecto is installed after 1 seccond
-        setTimeout(() => {
-            if (!!window.PhantasmaLinkSocket == true) {
-                providerHint = 'ecto';
-            };
-        }, 1000);
+        //Set Document inputs to Used Variables
+        _contractName = document.getElementById("contractName");
+        _methodName = document.getElementById("methodName");
+        _inputArguments = document.getElementById("inputArguments");
+        _scriptInput = document.getElementById("scriptInput");
+        _return = document.getElementById("returnBox");
+        _gasProfile = document.getElementById("gasProfileCheckbox");
+
+
+        //Toggle's to Manual Mode or Script Mode
+        function toggle() {
+            if (document.getElementById("scriptInputs").style.display === "none") {
+                document.getElementById("manualInputs").style.display = "none";
+                document.getElementById("scriptInputs").style.display = "block";
+            } else {
+                document.getElementById("scriptInputs").style.display = "none";
+                document.getElementById("manualInputs").style.display = "block";
+            }
+        };
+
 
     </script>
 
     <div
         style="background-image: url('https://static.vecteezy.com/system/resources/thumbnails/001/905/573/small/blue-grunge-background-free-photo.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover; height: 100vh;">
         <br><br>
-        <div
-            style="margin:auto; height: 180px; width: 400px; background-image: url('https://i.imgur.com/V3eik96.gif'); border-radius:25px;">
+        <div class="baseCard">
             <br>
 
             <div style="margin:auto;text-align:center; font-size: 28px; color: white; font-weight: bold;">Phantasma
                 Contract Tester
             </div>
 
-            <br><br>
+            <div style="width:320px;height:85px;margin:auto;display:flex">
+                <div style="width:100px;height:45px;margin:20px;display:inline-flex">
 
-            <div style="width:100px;height:45px;margin:auto;">
+                    <!-- Connect Button -->
+                    <div style="margin:auto;">
+                        <button type="button" class="btn btn-lg" onclick="loginToPhantasma()">Connect</button>
+                    </div>
 
-                <!-- Connect Button -->
-                <div style="margin:auto;">
-                    <button type="button" class="btn btn-lg" onclick="loginToPhantasma(link, requiredVersion, platform, providerHint)">Connect</button>
                 </div>
 
+                <div style="width:150px;height:45px;margin:20px;display:inline-flex;">
+                    <div style="margin:auto;">
+                        <button type="button" class="btn btn-lg" onclick="sendTransaction('mainenet', '')">Donate 2
+                            Kcal</button>
+                    </div>
+                </div>
             </div>
-
         </div>
 
         <br>
 
         <div>
 
-            <div
-                style="margin:auto; height:570px; width:400px; background-image: url('https://i.imgur.com/V3eik96.gif'); border-radius:25px;">
+            <div class="baseCard">
+
                 <br>
-                <br>
+                <div style="margin:auto; width:240px;">
+                    <div class="switch-button">
+                        <input class="switch-button-checkbox" type="checkbox" id="switchBox" onclick="toggle()"></input>
+                        <label class="switch-button-label" for="">
+                            <span class="switch-button-label-span">Manual</span>
+                        </label>
+                    </div>
+                </div>
                 <div id="manualInputs">
                     <div style="margin:auto; width:350px">
-                        <input type:"text" id="contractAddy" placeholder="Contract Address" class="basicInput"></input>
                         <br>
                         <br>
                         <input type:" text" id="contractName" placeholder="Contract Name" class="basicInput"></input>
@@ -92,13 +113,12 @@
                         <input type:"text" id="methodName" placeholder="Method Name" class="basicInput"></input>
                         <br>
                         <br>
-                        <input type:"text" id="inputParameters" placeholder="Parameters (parmeter1, parameter2, etc...)"
+                        <input type:"text" id="inputArguments" placeholder="Arguments (argument1, argument2, etc...)"
                             class="basicInput"></input>
                     </div>
                     <br>
                     <div style="margin:auto; width:350px">
-                        <input type:"text" id="returnBox" placeholder="Returned Data"
-                            style="width:100%; height:80px; text-align:center;" class="slideHide" readonly></input>
+                        <input type:"text" id="returnBox" placeholder="Returned Data" class="bigField" readonly></input>
                     </div>
                     <br>
                     <div style="width:130px;height:45px;margin:auto;">
@@ -108,15 +128,31 @@
                     </div>
                 </div>
 
-                <br><br>
-                <div style="width:175px;height:45px;margin:auto;">
-                    <div style="margin:auto;">
-                        <button type="button" class="btn btn-lg" onclick="sendTransaction()">Send Transaction</button>
+                <div id="scriptInputs" style="display:none">
+                    <div style="margin:auto; width:350px">
+                        <br>
+                        <br>
+                        <input type:" text" id="scriptInput" placeholder="Compiled Script" class="bigField"></input>
                     </div>
                 </div>
+
+                <br><br>
+
+                <div style="display:inline-flex; padding-left:40px; padding-right:40px; padding-bottom:50px">
+                    <input title="Enable Gas Profile" style="transform: scale(2)" type="checkbox"
+                        id="gasProfileCheckbox"></checkbox>
+                </div>
+
+                <div style="width:200px;height:68px;margin:auto;border-style:double; display:inline-flex;">
+                    <div style="width:175px;height:46px;margin:auto;">
+                        <button type="button" class="btn btn-lg" style="margin:auto;" onclick="sendTransaction()">Send
+                            Transaction</button>
+                    </div>
+                </div>
+                <br>
             </div>
 
-        </div>>
+        </div>
 
     </div>
 
