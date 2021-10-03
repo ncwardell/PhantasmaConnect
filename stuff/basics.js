@@ -163,7 +163,7 @@ async function invokeTransaction(script) {
         data: JSON.stringify(script), //Requests only accept strings
         datatype: 'application/json',
 
-        complete: function (response) { //When Data get's returned
+        complete: async function (response) { //When Data get's returned
 
             console.log(response); //Logging for Debuging purposes
 
