@@ -48,7 +48,11 @@ async function loginToPhantasma() {
 };
 
 async function getDocumentValue(input){
+    if(input == _inputArguments){
+        return document.getElementById(input).value.split(", ");
+    }else{
     return document.getElementById(input).value;
+    };
 };
 
 async function setDocumentValue(documentInput, inputValue){
@@ -100,7 +104,7 @@ async function updateScriptConfig(type) {
         case 'document':
             scriptConfig.contractName = await getDocumentValue(_contractName);
             scriptConfig.methodName = await getDocumentValue(_methodName);
-            scriptConfig.inputArguments = await getDocumentValue(_inputArguments).split(", ");
+            scriptConfig.inputArguments = await getDocumentValue(_inputArguments);
             
             //Compiles Script with or without gas profile
             if(_gasProfile == true){
@@ -118,7 +122,7 @@ async function updateScriptConfig(type) {
         case 'standard':
             scriptConfig.contractName = _contractName;
             scriptConfig.methodName = _methodName;
-            scriptConfig.inputArguments = _inputArguments.split(", ");
+            scriptConfig.inputArguments = _inputArguments;
             
             //Compiles Script with or without gas profile
             if(_gasProfile == true){
