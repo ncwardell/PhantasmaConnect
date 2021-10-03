@@ -132,7 +132,7 @@ async function updateScriptConfig(type) {
             };
 
             //Saves Script
-            await setDocumentValue(_scriptData, scriptConfig.compiledScript);
+            _scriptData = scriptConfig.compiledScript);
 
         break;
     };
