@@ -31,20 +31,20 @@ If using in HTML,set each variable equal to the element ID.
 Otherwise use them like normal variables
 
 //Saves Created Variable Values to internal Data
-- updateScriptConfig(type) //Two Types ['document', 'standard'], 'document' is used for HTML elements, 'standard' is used for normal variables
+- updateScriptConfig(type) {Two Types ['document', 'standard'], 'document' is used for HTML elements, 'standard' is used for normal variables}
 
 //Compiles Script from internal Data
-- compileScript(type) //Two Types ['transaction', 'invoke'], 'transaction' adds saftey gas profile, 'invoke' does not
+- compileScript(type) {Two Types ['transaction', 'invoke'], 'transaction' adds saftey gas profile, 'invoke' does not}
 
 //HTML Stuff
-- getDocumentValue(input) //Retrieves the text Value from element ID or intital Created Variables
-- setDocumentValue(documentInput, inputValue) //Sets the text Value from element ID or initial Created Variables
+- getDocumentValue(input) {Retrieves the text Value from element ID or intital Created Variables}
+- setDocumentValue(documentInput, inputValue) {Sets the text Value from element ID or initial Created Variables}
 
 //Sends the Script in a Transaction
-- sendTransaction(script) //_scriptData for normal or getDocumentValue(_scriptData) for HTML elements
+- sendTransaction(script) {_scriptData for normal or getDocumentValue(_scriptData) for HTML elements}
 
 //Invokes the script -No Transaction
-- invokeTransaction(script) //_scriptData for normal or getDocumentValue(_scriptData) for HTML elements
+- invokeTransaction(script) {_scriptData for normal or getDocumentValue(_scriptData) for HTML elements}
 
 
 
