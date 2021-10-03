@@ -153,14 +153,14 @@ function sendTransaction(type, script) {
 };
 
 //Retrieves Data From Smart Contracts via RPC
-function invokeTransaction(data) {
+async function invokeTransaction(script) {
 
 
     //Send RPC Request
     $.ajax({
         url: "http://207.148.17.86:7077/rpc", //Node address
         type: 'post',
-        data: JSON.stringify(data), //Requests only accept strings
+        data: JSON.stringify(script), //Requests only accept strings
         datatype: 'application/json',
 
         complete: function (response) { //When Data get's returned
@@ -176,7 +176,7 @@ function invokeTransaction(data) {
             });
 
             //Shows user the decoded data
-            document.getElementById('returnBox').value = cleanData;
+            await setDocumentValue(_return, cleanData);
         }
     });
 
