@@ -16,7 +16,7 @@ let _return;
 let scriptConfig = {
     contractName: '',
     methodName: '',
-    inputArguments: [''],
+    inputArguments: [],
     compiledScript: '',
 };
 
@@ -100,7 +100,7 @@ async function updateScriptConfig(type) {
         case 'document':
             scriptConfig.contractName = await getDocumentValue(_contractName);
             scriptConfig.methodName = await getDocumentValue(_methodName);
-            scriptConfig.inputArguments = await getDocumentValue(_inputArguments);
+            scriptConfig.inputArguments = await getDocumentValue(_inputArguments).split(", ");
             
             //Compiles Script with or without gas profile
             if(_gasProfile == true){
@@ -118,7 +118,7 @@ async function updateScriptConfig(type) {
         case 'standard':
             scriptConfig.contractName = _contractName;
             scriptConfig.methodName = _methodName;
-            scriptConfig.inputArguments = _inputArguments;
+            scriptConfig.inputArguments = _inputArguments.split(", ");
             
             //Compiles Script with or without gas profile
             if(_gasProfile == true){
