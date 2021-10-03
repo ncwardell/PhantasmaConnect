@@ -110,7 +110,7 @@ async function updateScriptConfig(type) {
             };
 
             //Saves Script
-            await setDocumentValue(scriptData, scriptConfig.compiledScript);
+            await setDocumentValue(_scriptData, scriptConfig.compiledScript);
 
         break;
 
@@ -128,7 +128,7 @@ async function updateScriptConfig(type) {
             };
 
             //Saves Script
-            await setDocumentValue(scriptData, scriptConfig.compiledScript);
+            await setDocumentValue(_scriptData, scriptConfig.compiledScript);
 
         break;
     };
