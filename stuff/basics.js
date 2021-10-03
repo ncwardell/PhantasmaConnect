@@ -141,10 +141,10 @@ async function updateScriptConfig(type) {
 
 
 //Sends Transactions
-function sendTransaction(type, script) {
+function sendTransaction(script) {
 
     //Send the Transaction (type = 'mainnet' or 'simnet')
-    link.sendTransaction(type, 'main', script, null, (res) => {
+    link.sendTransaction('main', script, null, (res) => {
 
         //Logging for Debuging Purposes
         if (res.success) {
