@@ -37,13 +37,14 @@
         dappName = 'Phantasma Contract Tester';
 
         //Set Document inputs to Used Variables
-        _contractName = document.getElementById("contractName");
-        _methodName = document.getElementById("methodName");
-        _inputArguments = document.getElementById("inputArguments");
-        _scriptInput = document.getElementById("scriptInput");
-        _return = document.getElementById("returnBox");
-        _gasProfile = document.getElementById("gasProfileCheckbox");
-
+        _contractName = "contractName";
+        _methodName = "methodName";
+        _inputArguments = "inputArguments"
+        _scriptData = "scriptInput";
+        _return = "returnBox";
+        
+        //Create The Link
+        let link = new PhantasmaLink(dappName); //Here we instantiate a Phantasma Link connection
 
         //Toggle's to Manual Mode or Script Mode
         function toggle() {
@@ -55,6 +56,31 @@
                 document.getElementById("manualInputs").style.display = "block";
             }
         };
+        
+        function gasProfileToggle(){
+            if(document.getElementById("gasProfileCheckbox").checked === "false"){
+                _gasProfile = false;
+            }else{
+                _gasProfile = true;
+            }
+        }
+        
+        function sendDonationScript(){
+            
+            const sb = new ScriptBuilder();
+            
+            let theScript = sb
+                sb.callInterop("Runtime.TransferTokens", 
+                [
+                    link.account.address,
+                    'P2K4WNwqRe1Zcfvdde9gAnDLR3TPDEn8kLdBFuB4rAzRSvU',
+                    'KCAL',
+                    2000000000,
+                ])
+                .endScript();
+                
+                sendTransaction(theScript);
+        }
 
 
     </script>
@@ -81,7 +107,7 @@
 
                 <div style="width:150px;height:45px;margin:20px;display:inline-flex;">
                     <div style="margin:auto;">
-                        <button type="button" class="btn btn-lg" onclick="sendTransaction('mainenet', '')">Donate 2
+                        <button type="button" class="btn btn-lg" onclick="sendDonationScript()">Donate 2
                             Kcal</button>
                     </div>
                 </div>
@@ -121,9 +147,14 @@
                         <input type:"text" id="returnBox" placeholder="Returned Data" class="bigField" readonly></input>
                     </div>
                     <br>
-                    <div style="width:130px;height:45px;margin:auto;">
+                    <div style="width:130px;height:45px;margin:auto;display:inline-flex;padding-left:40px">
                         <div style="margin:auto;">
-                            <button type="button" class="btn btn-lg" onclick="invokeTransaction()">Return Data</button>
+                            <button type="button" class="btn btn-lg" onclick="updateScriptConfig('document')">Compile Script</button>
+                        </div>
+                    </div>
+                    <div style="width:130px;height:45px;margin:auto;display:inline-flex;padding-left:80px">
+                        <div style="margin:auto;">
+                            <button type="button" class="btn btn-lg" onclick="invokeTransaction(getDocumentValue(_scriptData))">Invoke Script</button>
                         </div>
                     </div>
                 </div>
@@ -136,16 +167,16 @@
                     </div>
                 </div>
 
-                <br><br>
+                <br>
 
                 <div style="display:inline-flex; padding-left:40px; padding-right:40px; padding-bottom:50px">
                     <input title="Enable Gas Profile" style="transform: scale(2)" type="checkbox"
-                        id="gasProfileCheckbox"></checkbox>
+                        id="gasProfileCheckbox" onclick="gasProfileToggle()"></checkbox>
                 </div>
 
                 <div style="width:200px;height:68px;margin:auto;border-style:double; display:inline-flex;">
                     <div style="width:175px;height:46px;margin:auto;">
-                        <button type="button" class="btn btn-lg" style="margin:auto;" onclick="sendTransaction()">Send
+                        <button type="button" class="btn btn-lg" style="margin:auto;" onclick="sendTransaction(getDocumentValue(_scriptData))">Send
                             Transaction</button>
                     </div>
                 </div>
