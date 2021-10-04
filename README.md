@@ -25,13 +25,13 @@ Created Variables
 - _methodName;
 - _inputArguments;
 - _scriptData;
-- _gasProfile;
+- _gasProfile; ~ boolean value to determine if you want gas saftey profile enabled
 - _return;
 
 If using in HTML,set each variable equal to the element ID.
 Otherwise use them like normal variables
 
-//Saves Created Variable Values to internal Data
+//Saves Created Variable Values to internal Data and calls compileScript
 - updateScriptConfig(type) ~ Two Types ['document', 'standard'], 'document' is used for HTML elements, 'standard' is used for normal variables
 
 //Compiles Script from internal Data
