@@ -81,6 +81,15 @@
                 
                 sendTransaction(theScript);
         }
+        
+        async function transactionSend(){
+            sendTransaction(await getDocumentValue(_scriptData))
+        }
+        
+         async function invokeSend(){
+            invokeTransaction(await getDocumentValue(_scriptData))
+        }
+
 
 
     </script>
@@ -154,7 +163,7 @@
                     </div>
                     <div style="width:130px;height:45px;margin:auto;display:inline-flex;padding-left:80px">
                         <div style="margin:auto;">
-                            <button type="button" class="btn btn-lg" onclick="invokeTransaction(getDocumentValue(_scriptData))">Invoke Script</button>
+                            <button type="button" class="btn btn-lg" onclick="invokeSend()">Invoke Script</button>
                         </div>
                     </div>
                 </div>
@@ -176,7 +185,7 @@
 
                 <div style="width:200px;height:68px;margin:auto;border-style:double; display:inline-flex;">
                     <div style="width:175px;height:46px;margin:auto;">
-                        <button type="button" class="btn btn-lg" style="margin:auto;" onclick="sendTransaction(getDocumentValue(_scriptData))">Send
+                        <button type="button" class="btn btn-lg" style="margin:auto;" onclick="transactionSend()">Send
                             Transaction</button>
                     </div>
                 </div>
