@@ -1,4 +1,4 @@
-# PhantasmaContractTester
+# PhantasmaConnect
 It allows you to Call/Invoke scripts for Phantasma Smart Contracts
 
 Script Inports needed for Phantasma Link
@@ -13,7 +13,7 @@ Script Inports needed for Phantasma Link
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
 
 
-# How to use Basics.js
+# How to use PhantasmaConnect.js
 
 //Base Functions
 - checkForEcto() ~ Checks for Ecto Wallet and sets Global Variable 'providerHint'
