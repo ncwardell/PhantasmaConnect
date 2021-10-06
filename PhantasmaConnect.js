@@ -1165,7 +1165,7 @@ var PhantasmaConnect = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 //Send the Transaction (type = 'mainnet' or 'simnet')
-                this.Link.sendTransaction('mainnet', _inputScript, null, function (res) {
+                this.Link.sendTransaction('main', _inputScript, null, function (res) {
                     //Logging for Debuging Purposes
                     if (res.success) {
                         console.log('success: ' + res);
@@ -1540,3 +1540,4 @@ class PhantasmaLink {
             });
         }, 1500);
     }
+}

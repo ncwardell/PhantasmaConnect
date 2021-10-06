@@ -1009,7 +1009,7 @@ class PhantasmaConnect {
     async signTransaction(_inputScript: any) {
 
         //Send the Transaction (type = 'mainnet' or 'simnet')
-        this.Link.sendTransaction('mainnet', _inputScript, null, (res) => {
+        this.Link.sendTransaction('main', _inputScript, null, (res) => {
 
             //Logging for Debuging Purposes
             if (res.success) {
