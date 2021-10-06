@@ -2,42 +2,37 @@
 PhantasmaConnect is built on top of Phantasma Link, and allows you to easily Call, Build, and Invoke scripts for Smart Contracts on the Phantasma Chain. It also allows you to create dApps with relative ease.
 
 HTML Imports needed for Phantasma Link
-
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" crossorigin="anonymous"></script>
+    ```<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" crossorigin="anonymous"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
     <script src="https://peterolson.github.io/BigInteger.js/BigInteger.min.js"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">```
 
 HTML Imports needed for PhantasmaConnect
-    
-    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaConnect/public/PhantasmaConnect-V1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    ```<script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaConnect/public/PhantasmaConnect-V1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>```
 
 **Phantasma Link is already pre-built into PhantasmaConnect**
 
 
 If you aren't using HTML, required NPM packages:
-    
-    npm install axios
-
-    npm install big-integer
+    ```npm install axios```
+    ```npm install big-integer```
 
 
 
 # How to use PhantasmaConnect.js
 
 Initialize connection
-
-    let dapp = new PhantasmaConnect('YourDappName', 'http://207.148.17.86:7077/rpc');
+    ```let dapp = new PhantasmaConnect('YourDappName', 'http://207.148.17.86:7077/rpc');```
 
 ##Basic Commands
-- await walletConnect()
-- await GenerateScript(_contractName: string, _methodName: string, _inputArguments: [], type: string)
-- await signTransaction(_inputScript: any)
+- ```await dapp.walletConnect()```
+- ```await dapp.GenerateScript(_contractName: string, _methodName: string, _inputArguments: [], type: string)```
+- ```await dapp.signTransaction(_inputScript: any)```
 
 ##Misc Functions
-- await checkForEcto() [Utilized in walletConnect()]
+- await dapp.checkForEcto() [Utilized in walletConnect()]
 
 ##dapp.RPC calls
 - await dapp.RPC.getAccount(WalletAddress: string);
