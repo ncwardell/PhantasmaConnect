@@ -1,5 +1,5 @@
 # PhantasmaConnect
-Built on top of Phantasma Link, PhantasmaConnect allows you to easily Call, Build, and Invoke scripts for Smart Contracts on the Phantasma Chain
+PhantasmaConnect is built on top of Phantasma Link, and allows you to easily Call, Build, and Invoke scripts for Smart Contracts on the Phantasma Chain. It also allows you to create dApps with relative ease.
 
 HTML Imports needed for Phantasma Link
 
@@ -10,9 +10,16 @@ HTML Imports needed for Phantasma Link
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
 
 HTML Imports needed for PhantasmaConnect
-
     
+    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaConnect/public/PhantasmaConnect-V1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+~Phantasma Link is already pre-built into PhantasmaConnect~
+
+
+Non HTML required NPM packages
+    npm install axios
+    npm install big-integer
 
 # How to use PhantasmaConnect.js
 
