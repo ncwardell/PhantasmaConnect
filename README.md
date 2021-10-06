@@ -14,12 +14,15 @@ HTML Imports needed for PhantasmaConnect
     <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaConnect/public/PhantasmaConnect-V1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-~Phantasma Link is already pre-built into PhantasmaConnect~
+- Phantasma Link is already pre-built into PhantasmaConnect
 
 
 Non HTML required NPM packages
+    
     npm install axios
     npm install big-integer
+
+
 
 # How to use PhantasmaConnect.js
 
