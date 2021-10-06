@@ -931,7 +931,7 @@ class PhantasmaConnect {
     };
 
     //Logs in to Phantasma (If Ecto installed, Toggles Custom Ecto Connect Socket with prividerHint)
-    async loginToPhantasma() {
+    async walletConnect() {
 
         //Waits for Ecto Check to finish then continues
         await this.checkForEcto();
