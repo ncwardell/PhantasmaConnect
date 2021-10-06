@@ -17,46 +17,47 @@ HTML Imports needed for PhantasmaConnect
 - Phantasma Link is already pre-built into PhantasmaConnect
 
 
-Non HTML required NPM packages
+If you aren't using HTML, required NPM packages:
     
     npm install axios
+
     npm install big-integer
 
 
 
 # How to use PhantasmaConnect.js
 
-//Base Functions
-- checkForEcto() ~ Checks for Ecto Wallet and sets Global Variable 'providerHint'
-- loginToPhantasma() ~ Logs in to Phantasma via wallet [Calls checkForEcto()]
-
-//Important
-Created Variables
-- _contractName;
-- _methodName;
-- _inputArguments;
-- _scriptData;
-- _gasProfile; ~ boolean value to determine if you want gas saftey profile enabled
-- _return;
-
-If using in HTML,set each variable equal to the element ID.
-Otherwise use them like normal variables
-
-//Saves Created Variable Values to internal Data and calls compileScript
-- updateScriptConfig(type) ~ Two Types ['document', 'standard'], 'document' is used for HTML elements, 'standard' is used for normal variables
-
-//Compiles Script from internal Data
-- compileScript(type) ~ Two Types ['transaction', 'invoke'], 'transaction' adds saftey gas profile, 'invoke' does not
-
-//HTML Stuff
-- getDocumentValue(input) ~ Retrieves the text Value from element ID or intital Created Variables
-- setDocumentValue(documentInput, inputValue) ~ Sets the text Value from element ID or initial Created Variables
-
-//Sends the Script in a Transaction
-- sendTransaction(script) ~ _scriptData for normal or getDocumentValue(_scriptData) for HTML elements
-
-//Invokes the script -No Transaction
-- invokeTransaction(script) ~ _scriptData for normal or getDocumentValue(_scriptData) for HTML elements
+    let dapp = new PhantasmaConnect('YourDappName', 'http://207.148.17.86:7077/rpc');
 
 
 
+
+
+dapp.RPC calls
+- await dapp.RPC.getAccount(WalletAddress: string)
+- await dapp.RPC.lookUpName(WalletAddress: string)
+- await dapp.RPC.getBlockHeight(ChainAddress: string)
+- await dapp.RPC.getBlockTransactionCountByHash(BlockHash: string)
+- await dapp.RPC.getBlockByHash(BlockHash: string)
+- await dapp.RPC.getRawBlockByHash(BlockHash: string)
+- await dapp.RPC.getBlockByHeight(ChainAddress: string, BlockHeight: number)
+- await dapp.RPC.getRawBlockByHeight(ChainAddress: string, BlockHeight: number)
+- await dapp.RPC.getTransactionByBlockHashAndIndex(BlockHash: string, TransactionIndex: number)
+- await dapp.RPC.getAddressTransactions(WalletAddress: string, PageIndex: number, PageItemMax: number)
+- await dapp.RPC.getAddressTransactionCount(WalletAddress: string, ChainAddress: string)
+- await dapp.RPC.sendRawTransaction(SerializedScript: string)
+- await dapp.RPC.invokeRawScript(ChainAddress: string, SerializedScript: string)
+- await dapp.RPC.getTransaction(TransactionHash: string)
+- await dapp.RPC.cancelTransaction(TransactionHash: string)
+- await dapp.RPC.getChains()
+- await dapp.RPC.getTokens()
+- await dapp.RPC.getToken(TokenSymbol: string)
+- await dapp.RPC.getTokenData(TokenSymbol: string, TokenID: string)
+- await dapp.RPC.getApps()
+- await dapp.RPC.getTokenTransfers(TokenSymbol: string, PageIndex: number, PageItemMax: number)
+- await dapp.RPC.getTokenTransferCount(TokenSymbol: string)
+- await dapp.RPC.getTokenBalance(WalletAddress: string, TokenSymbol: string, ChainAddress: string)
+- await dapp.RPC.getAuctions(ChainAddress: string, TokenSymbol: string, PageIndex: number, PageItemMax: number)
+- await dapp.RPC.getAuction(ChainAddress: string, TokenSymbol: string, TokenID: string)
+- await dapp.RPC.getArchive(ArchiveHash: string)
+- More Coming Soon
