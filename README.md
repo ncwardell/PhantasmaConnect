@@ -1,5 +1,5 @@
 # PhantasmaConnect
-It allows you to Call/Invoke scripts for Phantasma Smart Contracts
+Utilizing Phantasma Link, It allows you to easily Call, Build, and Invoke scripts for Phantasma Smart Contracts
 
 Script Inports needed for Phantasma Link
 
