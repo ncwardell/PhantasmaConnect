@@ -991,7 +991,7 @@ class PhantasmaConnect {
         }
     };
 
-    async GenerateScript(_contractName: string, _methodName: string, _inputArguments: [], type: string) {
+    async generateScript(_contractName: string, _methodName: string, _inputArguments: [], type: string) {
 
         this.scriptConfig = {
             contractName: _contractName,
@@ -1019,6 +1019,10 @@ class PhantasmaConnect {
             }
         });
 
+    };
+
+    async getWalletAddy(){
+        return await this.Link.account.address;
     };
 
 

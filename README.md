@@ -31,12 +31,14 @@ Initialize connection
     let dapp = new PhantasmaConnect('YourDappName', 'http://207.148.17.86:7077/rpc');
 
 ## Basic Commands
-- await ```dapp.walletConnect()```
-- await ```dapp.GenerateScript(_contractName: string, _methodName: string, _inputArguments: [], type: string)```
+- await ```dapp.walletConnect()``` <- Needs to Be Run First
+- await ```dapp.generateScript(_contractName: string, _methodName: string, _inputArguments: [], type: string)```
 - await ```dapp.signTransaction(_inputScript: any)```
+- await ```dapp.getWalletAddy()```
 
 ## Misc Functions
 - await ```dapp.checkForEcto() [Utilized in walletConnect()]```
+- await ```dapp.Decode.decodeVMObject(str: string)```
 
 ## Important Variables
 - ```dapp.scriptConfig```
@@ -56,6 +58,13 @@ phantasmaLinkConfig = {
         providerHint: ''
     }
 ```
+
+## Some dapp.Link calls
+- await ```dapp.Link.account.name()```
+- await ```dapp.Link.account.avatar()```
+- await ```dapp.Link.account.external()```
+- await ```dapp.Link.wallet()```
+- await ```dapp.Link.token()```
 
 ## dapp.RPC calls
 - await ```dapp.RPC.getAccount(WalletAddress: string)```
