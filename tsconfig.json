@@ -1,15 +1,14 @@
 {
-    "compileOnSave": true,
-    "compilerOptions": {
-      "module":"system",
-      "target": "es5",
-      "sourceMap": true,
-      "outFile": "phantasmaConnect.js"
-    },
-    "files":[
-      "./src/phantasmaConnect.ts",
-      "./src/phantasmaLink.ts",
-      "./src/phantasmaRPC.ts",
-      "./src/phantasmaScriptBuilder.ts"
-    ]
-  }
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module":"system",
+    "target": "es5",
+    "sourceMap": true,
+    "outFile": "phantasmaConnect.js"
+  },
+  "files":[
+    "./src/phantasmaLink.ts",
+    "./src/phantasmaRPC.ts",
+    "./src/phantasmaScriptBuilder.ts"
+  ]
+}
