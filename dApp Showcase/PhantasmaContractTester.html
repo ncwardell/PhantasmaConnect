@@ -4,26 +4,19 @@
 <head>
     <title>Phantasma Contract Tester</title>
 
-    <!-- Stuff Needed for Clean Run -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-        crossorigin="anonymous">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
-    <!-- PhantasmaLink Stuff -->
-    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/phantasma.js"></script>
-    <script
-        src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/phantasma.css"
-        rel="stylesheet">
-
-    <!-- Decoding N Junk -->
+    <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
     <script src="https://peterolson.github.io/BigInteger.js/BigInteger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/decoder.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaConnect/public/phantasma.css">
 
-    <!-- Customs -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/basics.css">
-    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/basics.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaConnect/public/PhantasmaConnect-V1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaConnect/public/basics.css"
+
+
 
 
 </head>
@@ -33,18 +26,15 @@
     <!-- Script To Connect -->
     <script>
 
-        //The Name of your dapp
-        dappName = 'Phantasma Contract Tester';
+        //Start The Puppy UP
+        let dapp = new PhantasmaConnect('Phantasma Contract Tester', 'http://207.148.17.86:7077/rpc');
 
         //Set Document inputs to Used Variables
-        _contractName = "contractName";
-        _methodName = "methodName";
-        _inputArguments = "inputArguments"
-        _scriptData = "scriptInput";
-        _return = "returnBox";
-        
-        //Create The Link
-        let link = new PhantasmaLink(dappName); //Here we instantiate a Phantasma Link connection
+        let _contractName = "contractName";
+        let _methodName = "methodName";
+        let _inputArguments = "inputArguments"
+        let _scriptData = "scriptInput";
+        let _return = "returnBox";
 
         //Toggle's to Manual Mode or Script Mode
         function toggle() {
@@ -56,38 +46,26 @@
                 document.getElementById("manualInputs").style.display = "block";
             }
         };
-        
-        function gasProfileToggle(){
-            if(document.getElementById("gasProfileCheckbox").checked === "false"){
+
+        function gasProfileToggle() {
+            if (document.getElementById("gasProfileCheckbox").checked === "false") {
                 _gasProfile = false;
-            }else{
+            } else {
                 _gasProfile = true;
             }
         }
-        
-        function sendDonationScript(){
-            
-            const sb = new ScriptBuilder();
-            
-            let theScript = sb
-                sb.callInterop("Runtime.TransferTokens", 
-                [
-                    link.account.address,
-                    'P2K4WNwqRe1Zcfvdde9gAnDLR3TPDEn8kLdBFuB4rAzRSvU',
-                    'KCAL',
-                    2000000000,
-                ])
-                .endScript();
-                
-                sendTransaction(theScript);
-        }
-        
-        async function transactionSend(){
-            sendTransaction(await getDocumentValue(_scriptData))
-        }
-        
-         async function invokeSend(){
-            invokeTransaction(await getDocumentValue(_scriptData))
+
+        async function compileTheScript(){
+
+            let type;
+
+            if (_gasProfile == true){
+                type = 'gasProfile'
+            }else{
+                type = 'invoke'
+            };
+
+            document.getElementById(_scriptData).value = await dapp.generateScript(document.getElementById(_contractName).value,document.getElementById(_methodName).value, document.getElementById(_inputArguments).value.split(", "), type);
         }
 
 
@@ -109,14 +87,14 @@
 
                     <!-- Connect Button -->
                     <div style="margin:auto;">
-                        <button type="button" class="btn btn-lg" onclick="loginToPhantasma()">Connect</button>
+                        <button type="button" class="btn btn-lg" onclick="dapp.walletConnect()">Connect</button>
                     </div>
 
                 </div>
 
                 <div style="width:150px;height:45px;margin:20px;display:inline-flex;">
                     <div style="margin:auto;">
-                        <button type="button" class="btn btn-lg" onclick="sendDonationScript()">Donate 2
+                        <button type="button" class="btn btn-lg" onclick="">Donate 2
                             Kcal</button>
                     </div>
                 </div>
@@ -158,7 +136,8 @@
                     <br>
                     <div style="width:130px;height:45px;margin:auto;display:inline-flex;padding-left:40px">
                         <div style="margin:auto;">
-                            <button type="button" class="btn btn-lg" onclick="updateScriptConfig('document')">Compile Script</button>
+                            <button type="button" class="btn btn-lg" onclick="compileTheScript()">Compile
+                                Script</button>
                         </div>
                     </div>
                     <div style="width:130px;height:45px;margin:auto;display:inline-flex;padding-left:80px">
