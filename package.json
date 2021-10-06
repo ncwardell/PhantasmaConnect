@@ -1,0 +1,25 @@
+{
+  "name": "phantasmaconnect",
+  "version": "1.0.0",
+  "description": "PhantasmaConnect is built on top of Phantasma Link, and allows you to easily Call, Build, and Invoke scripts for Smart Contracts on the Phantasma Chain. It also allows you to create dApps with relative ease.",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.22.0",
+    "big-integer": "^1.6.49",
+    "typescript": "^4.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ncwardell/PhantasmaConnect.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ncwardell/PhantasmaConnect/issues"
+  },
+  "homepage": "https://github.com/ncwardell/PhantasmaConnect#readme"
+}
