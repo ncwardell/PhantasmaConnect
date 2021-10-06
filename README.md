@@ -1,16 +1,17 @@
 # PhantasmaConnect
-Utilizing Phantasma Link, It allows you to easily Call, Build, and Invoke scripts for Phantasma Smart Contracts
+Built on top of Phantasma Link, PhantasmaConnect allows you to easily Call, Build, and Invoke scripts for Smart Contracts on the Phantasma Chain
 
-Script Inports needed for Phantasma Link
+HTML Imports needed for Phantasma Link
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" crossorigin="anonymous"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/phantasma.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/phantasma-io/PhantasmaLink/Dapps/www/public/Shared/validator.min.js"></script>
     <script src="https://peterolson.github.io/BigInteger.js/BigInteger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/decoder.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/ncwardell/PhantasmaContractTester/stuff/basics.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
+
+HTML Imports needed for PhantasmaConnect
+
+    
 
 
 # How to use PhantasmaConnect.js
