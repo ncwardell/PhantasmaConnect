@@ -35,6 +35,7 @@
         let _inputArguments = "inputArguments"
         let _scriptData = "scriptInput";
         let _return = "returnBox";
+        let  _gasProfile = false;
 
         //Toggle's to Manual Mode or Script Mode
         function toggle() {
@@ -65,10 +66,35 @@
                 type = 'invoke'
             };
 
-            document.getElementById(_scriptData).value = await dapp.generateScript(document.getElementById(_contractName).value,document.getElementById(_methodName).value, document.getElementById(_inputArguments).value.split(", "), type);
+            document.getElementById(
+                _scriptData).value = await dapp.generateScript(document.getElementById(_contractName).value,
+                document.getElementById(_methodName).value, 
+                document.getElementById(_inputArguments).value.split(", "), 
+                type);
         }
 
+        async function transactionSend(){
 
+            const sb = new ScriptBuilder();
+            
+            let script = sb
+            .rawString(document.getElementById(_scriptData).value)
+
+            console.log(script)
+            
+            await dapp.signTransaction(document.getElementById(script).value);
+        };
+
+        async function invokeSend(){
+
+            const sb = new ScriptBuilder();
+            
+            let script = sb
+            .rawString(document.getElementById(_scriptData).value)
+
+            console.log(await dapp.RPC.invokeRawScript('main', script));
+
+        };
 
     </script>
 
