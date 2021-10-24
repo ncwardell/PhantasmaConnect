@@ -126,8 +126,7 @@ class PhantasmaLink {
 
     createSocket() {
         let path = 'ws://' + this.host + '/phantasma'
-        console.log('Phantasma Link connecting...')
-        this.onMessage('Phantasma Link connecting')
+        this.onMessage('Phantasma Link connecting...')
         if (this.socket)
             this.socket.close();
 
@@ -263,7 +262,7 @@ class PhantasmaLink {
     }
 
     sendLinkRequest(request, callback) {
-        // this.onMessage('Sending Phantasma Link request: ' + request)
+        this.onMessage('Sending Phantasma Link request: ' + request)
 
         if (this.token != null) {
             request = request + '/' + this.dapp + '/' + this.token

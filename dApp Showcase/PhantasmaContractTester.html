@@ -66,23 +66,19 @@
                 type = 'invoke'
             };
 
-            document.getElementById(
-                _scriptData).value = await dapp.generateScript(document.getElementById(_contractName).value,
+            let script = await dapp.generateScript(
+                document.getElementById(_contractName).value,
                 document.getElementById(_methodName).value, 
                 document.getElementById(_inputArguments).value.split(", "), 
                 type);
+                
+            console.log(script);
+            document.getElementById(_scriptData).value = script;
         }
 
         async function transactionSend(){
-
-            const sb = new ScriptBuilder();
             
-            let script = sb
-            .rawString(document.getElementById(_scriptData).value)
-
-            console.log(script)
-            
-            await dapp.signTransaction(document.getElementById(script).value);
+            await dapp.signTransaction(document.getElementById(_scriptData).value);
         };
 
         async function invokeSend(){
