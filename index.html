@@ -82,10 +82,11 @@
         };
 
         async function invokeSend(){
-            let returnedData;
+            let returnedData = await dapp.RPC.invokeRawScript('main', document.getElementById(_scriptData).value)
+            let decryptedData = '';
             
-            await dapp.RPC.invokeRawScript('main', document.getElementById(_scriptData).value).result.results.forEach(element =>{
-                    returnedData = '{'+ dapp.Decode.decodeVMObject(element) + '}, '
+            returnedData.results.forEach(element =>{
+                    decryptedData += '{'+ dapp.Decode.decodeVMObject(element) + '}, '
                     console.log('-> '+ dapp.Decode.decodeVMObject(element));
                 });
             document.getElementById(_return).value = returnedData
