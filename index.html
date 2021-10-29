@@ -89,7 +89,7 @@
                     decryptedData += '{'+ dapp.Decode.decodeVMObject(element) + '}, '
                     console.log('-> '+ dapp.Decode.decodeVMObject(element));
                 });
-            document.getElementById(_return).value = returnedData
+            document.getElementById(_return).value = decryptedData;
         };
 
     </script>
