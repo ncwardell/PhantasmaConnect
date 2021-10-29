@@ -1,6 +1,21 @@
+var VMType: { String?: any; Number?: any; };
+(function (VMType) {
+    VMType[VMType["None"] = 0] = "None";
+    VMType[VMType["Struct"] = 1] = "Struct";
+    VMType[VMType["Bytes"] = 2] = "Bytes";
+    VMType[VMType["Number"] = 3] = "Number";
+    VMType[VMType["String"] = 4] = "String";
+    VMType[VMType["Timestamp"] = 5] = "Timestamp";
+    VMType[VMType["Bool"] = 6] = "Bool";
+    VMType[VMType["Enum"] = 7] = "Enum";
+    VMType[VMType["Object"] = 8] = "Object";
+})(VMType || (VMType = {}));
+
+
 class DecoderStuff {
 
     str: string;
+    
 
     constructor(str: string) {
         this.str = str;

@@ -161,10 +161,7 @@ var PhantasmaConnect = /** @class */ (function () {
     PhantasmaConnect.prototype.getWalletAddy = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.Link.account.address];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
+                return [2 /*return*/, this.Link.account.address];
             });
         });
     };
@@ -299,8 +296,7 @@ var PhantasmaLink = /** @class */ (function () {
     };
     PhantasmaLink.prototype.createSocket = function () {
         var path = 'ws://' + this.host + '/phantasma';
-        console.log('Phantasma Link connecting...');
-        this.onMessage('Phantasma Link connecting');
+        this.onMessage('Phantasma Link connecting...');
         if (this.socket)
             this.socket.close();
         this.socket = window.PhantasmaLinkSocket && this.providerHint !== 'poltergeist'
@@ -425,7 +421,7 @@ var PhantasmaLink = /** @class */ (function () {
         configurable: true
     });
     PhantasmaLink.prototype.sendLinkRequest = function (request, callback) {
-        // this.onMessage('Sending Phantasma Link request: ' + request)
+        this.onMessage('Sending Phantasma Link request: ' + request);
         if (this.token != null) {
             request = request + '/' + this.dapp + '/' + this.token;
         }
@@ -1240,6 +1236,18 @@ var ScriptBuilder = /** @class */ (function () {
     };
     return ScriptBuilder;
 }());
+var VMType;
+(function (VMType) {
+    VMType[VMType["None"] = 0] = "None";
+    VMType[VMType["Struct"] = 1] = "Struct";
+    VMType[VMType["Bytes"] = 2] = "Bytes";
+    VMType[VMType["Number"] = 3] = "Number";
+    VMType[VMType["String"] = 4] = "String";
+    VMType[VMType["Timestamp"] = 5] = "Timestamp";
+    VMType[VMType["Bool"] = 6] = "Bool";
+    VMType[VMType["Enum"] = 7] = "Enum";
+    VMType[VMType["Object"] = 8] = "Object";
+})(VMType || (VMType = {}));
 var DecoderStuff = /** @class */ (function () {
     function DecoderStuff(str) {
         this.str = str;
