@@ -27,7 +27,7 @@
     <script>
 
         //Start The Puppy UP
-        let dapp = new PhantasmaConnect('Phantasma Contract Tester', 'http://207.148.17.86:7077/rpc');
+        let dapp = new PhantasmaConnect('Phantasma Contract Tester', 'https://pavillionhub.com/api/rpc');
 
         //Set Document inputs to Used Variables
         let _contractName = "contractName";
@@ -49,7 +49,7 @@
         };
 
         function gasProfileToggle() {
-            if (document.getElementById("gasProfileCheckbox").checked === "false") {
+            if (document.getElementById("gasProfileCheckbox").checked == false) {
                 _gasProfile = false;
             } else {
                 _gasProfile = true;
@@ -82,14 +82,7 @@
         };
 
         async function invokeSend(){
-
-            const sb = new ScriptBuilder();
-            
-            let script = sb
-            .rawString(document.getElementById(_scriptData).value)
-
-            console.log(await dapp.RPC.invokeRawScript('main', script));
-
+            console.log(await dapp.RPC.invokeRawScript('main', document.getElementById(_scriptData).value));
         };
 
     </script>
