@@ -86,7 +86,7 @@
             let decryptedData = '[';
             
             returnedData.results.forEach(element =>{
-                    decryptedData += dapp.Decode.decodeVMObject(element) + ', '}, '
+                    decryptedData += dapp.Decode.decodeVMObject(element) + ', ';
                     console.log('-> '+ dapp.Decode.decodeVMObject(element));
                 });
             document.getElementById(_return).value = decryptedData + ']';
