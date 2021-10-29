@@ -103,7 +103,7 @@ class Decoder{
             case VMType.Number:
                 return dec.readBigIntAccurate();
             default:
-                return 'unsupported type ' + type;
+                return 'unsupported type ' + type + ' -> ' + dec;
         }
     }
 
