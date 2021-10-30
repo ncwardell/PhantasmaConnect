@@ -1327,7 +1327,7 @@ var Decoder = /** @class */ (function () {
             case VMType.Number:
                 return dec.readBigIntAccurate();
             default:
-                return 'unsupported type ' + type + ' -> ' + dec;
+                return '[unsupported type ' + type + '] -> ' + dec + ' -> ' + JSON.stringify(dec);
         }
     };
     Decoder.prototype.getTokenEventData = function (str) {
